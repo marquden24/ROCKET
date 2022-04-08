@@ -1,1 +1,3 @@
 # ROCKET
+Hi,
+This is my first game so...
