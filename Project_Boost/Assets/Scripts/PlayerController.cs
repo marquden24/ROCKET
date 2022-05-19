@@ -8,49 +8,36 @@ public class PlayerController : MonoBehaviour
     Rigidbody rb;
     [SerializeField] private float thrustforce = 2000f;
     [SerializeField] private float rotationforce = 2000f;
+    AudioSource audioSource;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        ProcessRotation();
-        ProcessThrust();
-    }
 
-    void ProcessThrust()
+
+    public void Thrust()
     {
-         if(Input.GetKey(KeyCode.W))
-        {
             rb.AddRelativeForce( Vector3.up * thrustforce *  Time.deltaTime);
             
-        }
-        else if(Input.GetKey(KeyCode.S))
-        {
+            if(!audioSource.isPlaying)  audioSource.Play();
+
             rb.AddRelativeForce( Vector3.down * thrustforce *  Time.deltaTime);
-            
-        }
-        
+            audioSource.Stop();  
     }
 
-    void ProcessRotation()
+    public void RotateLeft()
     { 
-       
-        if(Input.GetKey(KeyCode.A))
-        {
-            ApplyRotation(rotationforce);
+        ApplyRotation(rotationforce);
+    }
 
-        }
-        else if (Input.GetKey(KeyCode.D))
-        {
-            ApplyRotation(-rotationforce);
-        }
-
+    public void RotateRight()
+    {
+        ApplyRotation(-rotationforce);
     }
 
     private void ApplyRotation(float rotationValue)
